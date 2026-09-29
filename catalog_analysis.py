@@ -87,3 +87,23 @@ def titles_sorted_by_rating(movies_list: list) -> list:
 def top_n_by_rating(movies_list: list, n: int = 3) -> list:
     sorted_movies = sorted(movies_list, key=lambda x: x["rating"], reverse=True)
     return [(m["title"], m["rating"]) for m in sorted_movies[:n]]
+
+def count_by_genre(movies_list: list) -> dict:
+    counts = {}
+    for m in movies_list:
+        for genre in m["genres"]:
+            counts[genre] = counts.get(genre, 0) + 1
+    return counts
+
+def actor_filmography(movies_list: list) -> dict:
+    filmography = {}
+    for m in movies_list:
+        for actor in m["actors"]:
+            if actor not in filmography:
+                filmography[actor] = []
+            filmography[actor].append(m["title"])
+    return filmography
+
+def high_rated_dict(movies_list: list) -> dict:
+    avg = average_rating(movies_list)
+    return {m["title"]: m["rating"] for m in movies_list if m["rating"] > avg}
