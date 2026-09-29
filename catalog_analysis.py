@@ -80,3 +80,10 @@ def format_report_line(movie: dict) -> str:
     title = normalize_title(movie["title"])
     genres_str = ", ".join(sorted(list(movie["genres"])))
     return f'"{title}" ({movie["year"]}) — {movie["rating"]}/10, {duration_in_hours(movie["duration_min"])}, жанры: {genres_str}'
+
+def titles_sorted_by_rating(movies_list: list) -> list:
+    return [m["title"] for m in sorted(movies_list, key=lambda x: x["rating"], reverse=True)]
+
+def top_n_by_rating(movies_list: list, n: int = 3) -> list:
+    sorted_movies = sorted(movies_list, key=lambda x: x["rating"], reverse=True)
+    return [(m["title"], m["rating"]) for m in sorted_movies[:n]]
