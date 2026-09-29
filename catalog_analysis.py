@@ -107,3 +107,21 @@ def actor_filmography(movies_list: list) -> dict:
 def high_rated_dict(movies_list: list) -> dict:
     avg = average_rating(movies_list)
     return {m["title"]: m["rating"] for m in movies_list if m["rating"] > avg}
+
+def all_genres(movies_list: list) -> set:
+    genres = set()
+    for m in movies_list:
+        genres |= m["genres"]
+    return genres
+
+def common_actors(movie1: dict, movie2: dict) -> set:
+    return set(movie1["actors"]) & set(movie2["actors"])
+
+def genres_only_in_one(movies_a: list, movies_b: list) -> set:
+    genres_a = set()
+    for m in movies_a:
+        genres_a |= m["genres"]
+    genres_b = set()
+    for m in movies_b:
+        genres_b |= m["genres"]
+    return genres_a - genres_b
